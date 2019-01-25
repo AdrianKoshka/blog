@@ -49,7 +49,7 @@ You can find the URL to clone from when you press the `Clone or download` button
 ### Step Two: Initial repo setup
 
 You'll need to edit the `.travis.yml` and `docker_push` files in your repo,
-replacing `[yourusername]` with the username of your quay accunt. 
+replacing `[yourusername]` with the username of your quay account. 
 
 <script src="https://gist.github.com/AdrianKoshka/52691ea092f24997488b0bcdefd6d0b5.js"></script>
 
@@ -119,7 +119,7 @@ Your `Environment Variables` section should look like this now:
 
 ![Travis Environmental Variables After](/blog/imgs/travis-env-var-after.png)
 
-### Step Six: Comitting the changes from step two
+### Step Six: Committing the changes from step two
 
 Now that you've set everything else up, you can commit your changes to
 `.travis.yml` and `docker_push`, then push your changes to your fork. This
