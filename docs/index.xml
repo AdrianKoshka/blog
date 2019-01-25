@@ -12,5 +12,158 @@
         <atom:link href="https://adriankoshka.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
     
     
+    <item>
+      <title>Using Travis to push container images to Quay.io</title>
+      <link>https://adriankoshka.github.io/blog/post/travis-and-quay/</link>
+      <pubDate>Thu, 24 Jan 2019 20:02:00 +0000</pubDate>
+      <author>Adrian Lucrèce Céleste</author>
+      <guid>https://adriankoshka.github.io/blog/post/travis-and-quay/</guid>
+      <description></description>
+      
+      <content>
+
+&lt;h2 id=&#34;preface&#34;&gt;Preface&lt;/h2&gt;
+
+&lt;p&gt;This blog post assumes:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;The user is familiar with:
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://travis-ci.org&#34;&gt;Travis-ci&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.docker.com/&#34;&gt;Docker&lt;/a&gt; (or &lt;a href=&#34;https://podman.io&#34;&gt;podman&lt;/a&gt;/&lt;a href=&#34;https://buildah.io&#34;&gt;buildah&lt;/a&gt;)&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://git-scm.com/&#34;&gt;Git&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com&#34;&gt;Github&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;The user has an account with:
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://travis-ci.org&#34;&gt;Travis-ci&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com&#34;&gt;Github&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://quay.io&#34;&gt;Quay&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;For those unfamiliar with the above, here are some &lt;a href=&#34;#resources&#34;&gt;resources&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&#34;introduction&#34;&gt;Introduction&lt;/h1&gt;
+
+&lt;p&gt;I prefer using &lt;a href=&#34;https://quay.io&#34;&gt;Quay.io&lt;/a&gt; as my container registry instead of
+&lt;a href=&#34;https://hub.docker.com&#34;&gt;Dockerhub&lt;/a&gt;, and as such, I had to learn how setup
+&lt;a href=&#34;https://travis-ci.org&#34;&gt;Travis&lt;/a&gt; to push to &lt;a href=&#34;https://quay.io&#34;&gt;quay.io&lt;/a&gt;. This is
+something I hadn&amp;rsquo;t done before, as I&amp;rsquo;ve only recently started making my own
+container images.&lt;/p&gt;
+
+&lt;h3 id=&#34;step-one-fork-the-tutorial-repo&#34;&gt;Step One: fork the tutorial repo&lt;/h3&gt;
+
+&lt;p&gt;I&amp;rsquo;ve setup a repo on github that I&amp;rsquo;ll be using as a guide for this tutorial, it
+can be found &lt;a href=&#34;https://github.com/AdrianKoshka/travis-quay-tutorial&#34;&gt;here&lt;/a&gt;. All
+you need to do is press the &lt;code&gt;Fork&lt;/code&gt; button:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://adriankoshka.github.io/blog/blog/imgs/fork-button.png&#34; alt=&#34;fork button&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;This will make a copy of my repo for you to use with your account. The next step
+is to clone this repo:&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;git clone git@github.com:AdrianKoshka/travis-quay-tutorial.git&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;You can find the URL to clone from when you press the &lt;code&gt;Clone or download&lt;/code&gt; button.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://adriankoshka.github.io/blog/blog/imgs/clone-button-quay-travis-tut.png&#34; alt=&#34;clone or download button&#34; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;step-two-initial-repo-setup&#34;&gt;Step Two: Initial repo setup&lt;/h3&gt;
+
+&lt;p&gt;You&amp;rsquo;ll need to edit the &lt;code&gt;.travis.yml&lt;/code&gt; and &lt;code&gt;docker_push&lt;/code&gt; files in your repo,
+replacing &lt;code&gt;[yourusername]&lt;/code&gt; with the username of your quay account.&lt;/p&gt;
+
+&lt;script src=&#34;https://gist.github.com/AdrianKoshka/52691ea092f24997488b0bcdefd6d0b5.js&#34;&gt;&lt;/script&gt;
+
+&lt;script src=&#34;https://gist.github.com/AdrianKoshka/ee32d9157fd941f98c4eb60afac919ff.js&#34;&gt;&lt;/script&gt;
+
+&lt;h3 id=&#34;step-three-creating-the-quay-repository&#34;&gt;Step Three: Creating the quay repository&lt;/h3&gt;
+
+&lt;p&gt;When signed into quay, in the upper right-hand corner, you&amp;rsquo;ll see a
+&lt;code&gt;+ Create New Repository&lt;/code&gt; button. Click the button,&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://adriankoshka.github.io/blog/blog/imgs/quay-plus-button.png&#34; alt=&#34;quay plus button&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;You&amp;rsquo;ll want to select &lt;code&gt;Public&lt;/code&gt; instead of &lt;code&gt;Private&lt;/code&gt;, and enter the repository name.
+Then click &lt;code&gt;Create Public Repository&lt;/code&gt;. You&amp;rsquo;ve now created the empty repository
+we&amp;rsquo;ll be pushing our container image to later.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://adriankoshka.github.io/blog/blog/imgs/quay-new-repo.png&#34; alt=&#34;quay new repo&#34; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;step-four-creating-the-robot-account&#34;&gt;Step Four: Creating the &amp;ldquo;Robot Account&amp;rdquo;&lt;/h3&gt;
+
+&lt;p&gt;Robot accounts are &amp;ldquo;accounts&amp;rdquo; in quay.io under your user used for automated tasks.&lt;/p&gt;
+
+&lt;p&gt;Again, in the upper right-hand corner, you&amp;rsquo;ll see the &lt;code&gt;+&lt;/code&gt; button, click it, then
+click &lt;code&gt;New Robot Account&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://adriankoshka.github.io/blog/blog/imgs/new-robot-account.png&#34; alt=&#34;New Robot Account&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;You&amp;rsquo;ll need to enter a name and description for the bot:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://adriankoshka.github.io/blog/blog/imgs/create-robot-step-one.png&#34; alt=&#34;Create Robot Account Step 1&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Press &lt;code&gt;Create Robot Account&lt;/code&gt;, now you&amp;rsquo;ll have to give the robot write
+permissions to the repo you just created:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://adriankoshka.github.io/blog/blog/imgs/robot-give-privs.png&#34; alt=&#34;Give Robot privileges&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Then press &lt;code&gt;Add Permissions&lt;/code&gt;. You&amp;rsquo;ll be taken to your robot account settings
+page now.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://adriankoshka.github.io/blog/blog/imgs/robot-account-settings.png&#34; alt=&#34;Robot Settings Page&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Click the username of your newly created bot, it should bring up a window
+with your bots username and password.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://adriankoshka.github.io/blog/blog/imgs/bot-creds.png&#34; alt=&#34;Bot username and password&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;We&amp;rsquo;ll need these creds later.&lt;/p&gt;
+
+&lt;h3 id=&#34;step-five-adding-variables-to-your-repo-on-travis&#34;&gt;Step Five: Adding variables to your repo on travis&lt;/h3&gt;
+
+&lt;p&gt;On Travis, go to your settings and click the &lt;code&gt;sync account&lt;/code&gt; button. In the list
+of repositories should be your &lt;code&gt;travis-quay-tutorial&lt;/code&gt; repo you forked earlier,
+activate it, and click on the &lt;code&gt;settings&lt;/code&gt; button.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://adriankoshka.github.io/blog/blog/imgs/travis-settings.png&#34; alt=&#34;Travis Settings&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Scroll down to the section named &lt;code&gt;Environment Variables&lt;/code&gt;, and add a variable
+name &lt;code&gt;QUAY_BOT_USERNAME&lt;/code&gt;, put the username of your robot account that you saw
+in the previous section, you should be able to copy-paste it.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://adriankoshka.github.io/blog/blog/imgs/travis-env-var-username.png&#34; alt=&#34;Add QUAY_BOT_USERNAME&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Press the &lt;code&gt;Add&lt;/code&gt; button. Add another variable called &lt;code&gt;QUAY_BOT_PASSWORD&lt;/code&gt; and
+enter your bots password.&lt;/p&gt;
+
+&lt;p&gt;Your &lt;code&gt;Environment Variables&lt;/code&gt; section should look like this now:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://adriankoshka.github.io/blog/blog/imgs/travis-env-var-after.png&#34; alt=&#34;Travis Environmental Variables After&#34; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;step-six-committing-the-changes-from-step-two&#34;&gt;Step Six: Committing the changes from step two&lt;/h3&gt;
+
+&lt;p&gt;Now that you&amp;rsquo;ve set everything else up, you can commit your changes to
+&lt;code&gt;.travis.yml&lt;/code&gt; and &lt;code&gt;docker_push&lt;/code&gt;, then push your changes to your fork. This
+should trigger a build with travis, which will build the container, and then
+push it to the quay repository.&lt;/p&gt;
+
+&lt;h2 id=&#34;resources&#34;&gt;Resources&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://docs.travis-ci.com/user/for-beginners&#34;&gt;Travis Core Concepts for Beginners&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.docker.com/resources/what-container&#34;&gt;Docker: What is a Container&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.docker.com/get-started&#34;&gt;Docker: Get Started with Docker&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/containers/libpod/blob/master/docs/tutorials/podman_tutorial.md&#34;&gt;Podman: Basic Setup and Use of Podman&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/containers/buildah/tree/master/docs/tutorials&#34;&gt;Buildah: Tutorials&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://guides.github.com/&#34;&gt;Github Guides&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+      
+    </item>
+    
   </channel>
 </rss>

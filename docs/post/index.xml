@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on Adrian&#39;s Blog</title>
+    <link>https://adriankoshka.github.io/blog/post/</link>
+    <description>Recent content in Posts on Adrian&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>Adrian Lucrèce Céleste 2019</copyright>
+    <lastBuildDate>Thu, 24 Jan 2019 20:02:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://adriankoshka.github.io/blog/post/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Using Travis to push container images to Quay.io</title>
+      <link>https://adriankoshka.github.io/blog/post/travis-and-quay/</link>
+      <pubDate>Thu, 24 Jan 2019 20:02:00 +0000</pubDate>
+      
+      <guid>https://adriankoshka.github.io/blog/post/travis-and-quay/</guid>
+      <description>Preface This blog post assumes:
+ The user is familiar with:  Travis-ci Docker (or podman/buildah) Git Github  The user has an account with:  Travis-ci Github Quay   For those unfamiliar with the above, here are some resources
+Introduction I prefer using Quay.io as my container registry instead of Dockerhub, and as such, I had to learn how setup Travis to push to quay.io. This is something I hadn&amp;rsquo;t done before, as I&amp;rsquo;ve only recently started making my own container images.</description>
+    </item>
+    
+  </channel>
+</rss>
