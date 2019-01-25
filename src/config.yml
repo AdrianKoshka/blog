@@ -1,6 +1,6 @@
 baseurl: "https://adriankoshka.github.io/blog/"
 languageCode: "en-us"
-title: "Blog"
+title: "Adrian's Blog"
 copyright: "Adrian Lucrèce Céleste 2019"
 enableRobotsTXT: true
 
@@ -8,7 +8,7 @@ params:
         info:
                 enableScoial: true
                 poweredBy: true
-                homeTitle: "Blog"
+                homeTitle: "Adrian's Blog"
                 related: true
         rss:
                 includeContent: true
