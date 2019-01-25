@@ -1,7 +1,6 @@
 ---
 title: "Using Travis to push container images to Quay.io"
 date: 2019-01-24T20:02:00Z
-draft: true
 ---
 
 ## Preface
