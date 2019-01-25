@@ -1,0 +1,32 @@
+baseurl: "https://adriankoshka.github.io/blog/"
+languageCode: "en-us"
+title: "Blog"
+copyright: "Adrian Lucrèce Céleste 2019"
+enableRobotsTXT: true
+
+params:
+        info:
+                enableScoial: true
+                poweredBy: true
+                homeTitle: "Blog"
+                related: true
+        rss:
+                includeContent: true
+                authorName: "Adrian Lucrèce Céleste"
+                authorEmail: "adrianlucrececeleste@airmail.cc"
+        social:
+                twitter: "lucrececeleste"
+                github: "adriankoshka"
+                email: "adrianlucrececeleste@airmail.cc"
+                rss: "blog/index.xml"
+                config:
+                        platforms: ["github", "twitter", "email", "rss"]
+        AuthorName: "Adrian Lucrèce Céleste"
+        description: "My personal blog"
+        enableGitinfo: true
+        preserveTaxonomyNames: true
+
+taxonomies:
+        tag: "tags"
+        category: "categories"
+        series: "series"
