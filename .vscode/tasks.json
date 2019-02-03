@@ -26,6 +26,7 @@
                     "run",
                     "--rm",
                     "-it",
+                    "--isolation=hyperv",
                     "--name=hp",
                     "-p",
                     "1313:1313",
@@ -65,6 +66,7 @@
                 "args": [
                     "run",
                     "--rm",
+                    "--isolation=hyperv",
                     "-it",
                     "--name=hb",
                     "-p",
