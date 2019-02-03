@@ -32,7 +32,7 @@ The `RUN` statement tells docker to run powershell with the specified parameters
 inside the container, `Invoke-WebRequest` is how I download the `.zip` that hugo
 comes packaged in for windows.
 
-`RUN powershell Expand-Archive C:\hugo.zip -DestinationPath C:\hugo`
+`RUN powershell Expand-Archive C:\\hugo.zip -DestinationPath C:\\hugo`
 
 Here, powershell is unzipping the archive to `C:\hugo` for us.
 
