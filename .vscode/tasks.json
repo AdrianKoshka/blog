@@ -4,43 +4,80 @@
         {
             "label": "Preview",
             "type": "process",
-            "command": "podman",
-            "group": {
-                "kind": "test",
-                "isDefault": true
+            "linux": {
+                "command": "podman",
+                "args": [
+                    "run",
+                    "--rm",
+                    "--net=host",
+                    "--name=hp",
+                    "-v",
+                    "${workspaceFolder}:/workspace:z",
+                    "quay.io/adrianlucrececeleste/alpine-hugo:latest",
+                    "serve",
+                    "--theme=kiss",
+                    "--source=/workspace/src",
+                    "--buildDrafts"
+                ]
             },
-            "args": [
-                "run",
-                "--rm",
-                "--net=host",
-                "--name=hp",
-                "-v",
-                "${workspaceFolder}:/workspace:z",
-                "quay.io/adrianlucrececeleste/alpine-hugo:latest",
-                "serve",
-                "--theme=kiss",
-                "--source=/workspace/src",
-                "--buildDrafts"
-            ],
+            "windows": {
+                "command": "docker",
+                "args": [
+                    "run",
+                    "--rm",
+                    "-it",
+                    "--name=hp",
+                    "-p",
+                    "1313:1313",
+                    "-v",
+                    "${workspaceFolder}:C:\\workspace",
+                    "adrianlucrececeleste/windows-hugo:latest",
+                    "serve",
+                    "--theme=kiss",
+                    "--bind",
+                    "0.0.0.0",
+                    "--source=src",
+                    "--buildDrafts"
+                ]
+            },
             "problemMatcher": []
         },
         {
             "label": "Build Blog",
             "type": "process",
-            "command": "podman",
-            "args": [
-                "run",
-                "--rm",
-                "--net=host",
-                "--name=hb-$(git rev-parse HEAD)",
-                "-v",
-                "${workspaceFolder}:/workspace:z",
-                "quay.io/adrianlucrececeleste/alpine-hugo:latest",
-                "--cleanDestinationDir",
-                "--source=/workspace/src",
-                "--destination=/workspace/docs",
-                "--theme=kiss",
-            ],
+            "linux": {"command": "podman",
+                "args": [
+                    "run",
+                    "--rm",
+                    "--net=host",
+                    "--name=hb-$(git rev-parse HEAD)",
+                    "-v",
+                    "${workspaceFolder}:/workspace:z",
+                    "quay.io/adrianlucrececeleste/alpine-hugo:latest",
+                    "--cleanDestinationDir",
+                    "--source=/workspace/src",
+                    "--destination=/workspace/docs",
+                    "--theme=kiss",
+                ]
+            },
+            "windows": {
+                "command": "docker",
+                "args": [
+                    "run",
+                    "--rm",
+                    "-it",
+                    "--name=hb",
+                    "-p",
+                    "1313:1313",
+                    "-v",
+                    "${workspaceFolder}:C:\\workspace",
+                    "adrianlucrececeleste/windows-hugo:latest",
+                    "--cleanDestinationDir",
+                    "--source=C:\\workspace\\src",
+                    "--destination=C:\\workspace\\docs",
+                    "--theme=kiss"
+                ]
+            },
             "problemMatcher": [],
             "group": {
                 "kind": "build",
