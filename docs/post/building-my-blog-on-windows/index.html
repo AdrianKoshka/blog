@@ -117,7 +117,7 @@ case, I&rsquo;m using microsoft&rsquo;s nanoserver image.</p>
 inside the container, <code>Invoke-WebRequest</code> is how I download the <code>.zip</code> that hugo
 comes packaged in for windows.</p>
 
-<p><code>RUN powershell Expand-Archive C:\hugo.zip -DestinationPath C:\hugo</code></p>
+<p><code>RUN powershell Expand-Archive C:\\hugo.zip -DestinationPath C:\\hugo</code></p>
 
 <p>Here, powershell is unzipping the archive to <code>C:\hugo</code> for us.</p>
 

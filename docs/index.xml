@@ -51,7 +51,7 @@ case, I&amp;rsquo;m using microsoft&amp;rsquo;s nanoserver image.&lt;/p&gt;
 inside the container, &lt;code&gt;Invoke-WebRequest&lt;/code&gt; is how I download the &lt;code&gt;.zip&lt;/code&gt; that hugo
 comes packaged in for windows.&lt;/p&gt;
 
-&lt;p&gt;&lt;code&gt;RUN powershell Expand-Archive C:\hugo.zip -DestinationPath C:\hugo&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;RUN powershell Expand-Archive C:\\hugo.zip -DestinationPath C:\\hugo&lt;/code&gt;&lt;/p&gt;
 
 &lt;p&gt;Here, powershell is unzipping the archive to &lt;code&gt;C:\hugo&lt;/code&gt; for us.&lt;/p&gt;
 
