@@ -13,6 +13,79 @@
     
     
     <item>
+      <title>Building My Blog on Windows</title>
+      <link>https://adriankoshka.github.io/blog/post/building-my-blog-on-windows/</link>
+      <pubDate>Sun, 03 Feb 2019 15:38:44 -0500</pubDate>
+      <author>Adrian Lucrèce Céleste</author>
+      <guid>https://adriankoshka.github.io/blog/post/building-my-blog-on-windows/</guid>
+      <description></description>
+      
+      <content>
+
+&lt;h2 id=&#34;part-one-creating-a-container&#34;&gt;Part One: Creating a container&lt;/h2&gt;
+
+&lt;p&gt;On Linux, I build my blog via a &lt;a href=&#34;https://quay.io/repository/adrianlucrececeleste/alpine-hugo&#34;&gt;container&lt;/a&gt;,
+I felt like doing the same on windows. This means I&amp;rsquo;d have to create a container
+image for building my blog. Until now, I hadn&amp;rsquo;t experimented with windows
+containers, I chose the &lt;a href=&#34;https://hub.docker.com/r/microsoft/nanoserver&#34;&gt;nanoserver&lt;/a&gt;
+image as the base for my container. After doing some experimentation, I wrote
+&lt;a href=&#34;https://github.com/AdrianKoshka/windows-hugo/blob/master/Dockerfile&#34;&gt;this&lt;/a&gt; dockerfile:&lt;/p&gt;
+
+&lt;script src=&#34;https://gist.github.com/AdrianKoshka/cc965394f29893bcb1638a9253c5212f.js&#34;&gt;&lt;/script&gt;
+
+&lt;p&gt;For those unfamiliar with docker, this file can be easily broken down
+line-by-line.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;FROM microsoft/nanoserver&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;This line tells docker what image we want to base our container off of, in this
+case, I&amp;rsquo;m using microsoft&amp;rsquo;s nanoserver image.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;LABEL maintainer=&amp;quot;Adrian Lucrèce Céleste &amp;lt;adrianlucrececeleste@airmail.cc&amp;gt;&amp;quot;&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;This line tells docker who the maintainer of this image is, by applying a label.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;RUN powershell Invoke-WebRequest -Uri https://verlonglink.com -Outfile hugo.zip&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;The &lt;code&gt;RUN&lt;/code&gt; statement tells docker to run powershell with the specified parameters
+inside the container, &lt;code&gt;Invoke-WebRequest&lt;/code&gt; is how I download the &lt;code&gt;.zip&lt;/code&gt; that hugo
+comes packaged in for windows.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;RUN powershell Expand-Archive C:\hugo.zip -DestinationPath C:\hugo&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Here, powershell is unzipping the archive to &lt;code&gt;C:\hugo&lt;/code&gt; for us.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;WORKDIR C:\\workspace&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;WORKDIR&lt;/code&gt; tells the container what directory to start out in at runtime.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;CMD [ &amp;quot;--help&amp;quot; ]&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;CMD&lt;/code&gt; provides a default argument for the container while running, the container
+passes &lt;code&gt;--help&lt;/code&gt; to our &lt;code&gt;ENTRYPOINT&lt;/code&gt; of &lt;code&gt;C:\hugo\hugo.exe&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;ENTRYPOINT [ &amp;quot;C:\\hugo\\hugo.exe&amp;quot; ]&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;The last and final line, &lt;code&gt;ENTRYPOINT&lt;/code&gt; which tells the container what executable
+(and optionally, parameters) we want to use during runtime.&lt;/p&gt;
+
+&lt;h2 id=&#34;part-two-setting-up-vscode-to-use-the-container-on-windows&#34;&gt;Part Two: Setting up VScode to use the container on windows&lt;/h2&gt;
+
+&lt;p&gt;Before in my &lt;a href=&#34;https://github.com/AdrianKoshka/blog/blob/master/.vscode/tasks.json&#34;&gt;&lt;code&gt;tasks.json&lt;/code&gt;&lt;/a&gt;,
+I only had one &lt;code&gt;command&lt;/code&gt; and one &lt;code&gt;args&lt;/code&gt; section per task, now I seperate them
+based on the OS that VScode is running on. So now if I wanted to preview my blog
+on windows, all I have to do is run the &lt;code&gt;Preview&lt;/code&gt; task, and the container will
+be spun up, the ports mapped, and I can just open a web browser and look at my
+progress. Building is also as easy as just running the build task.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://adriankoshka.github.io/blog/blog/imgs/preview-windows-container.jpg&#34; alt=&#34;previewing the site&#34; /&gt;&lt;/p&gt;
+
+&lt;script src=&#34;https://gist.github.com/AdrianKoshka/006de98e4dd75eeb405b7715fcf4c07b.js&#34;&gt;&lt;/script&gt;
+</content>
+      
+    </item>
+    
+    <item>
       <title>Using Travis to push container images to Quay.io</title>
       <link>https://adriankoshka.github.io/blog/post/travis-and-quay/</link>
       <pubDate>Thu, 24 Jan 2019 20:02:00 +0000</pubDate>

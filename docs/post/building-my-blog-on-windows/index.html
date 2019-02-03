@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-<title>Posts | Adrian&#39;s Blog</title>
+<title>Building My Blog on Windows | Adrian&#39;s Blog</title>
 
 
 
@@ -79,61 +79,84 @@
 </section>
 <section class="section">
   <div class="container">
+    <div class="subtitle tags is-6 is-pulled-right">
+      
+    </div>
+    <h2 class="subtitle is-6">February 3, 2019</h2>
+    <h1 class="title">Building My Blog on Windows</h1>
     
-    
-    <article>
-      <div class="subtitle tags is-6 is-pulled-right">
-        
-      </div>
-      <h2 class="subtitle is-6">February 3, 2019</h2>
-      <h1 class="title"><a href="https://adriankoshka.github.io/blog/post/building-my-blog-on-windows/">Building My Blog on Windows</a></h1>
-      <div class="content">
-        Part One: Creating a container On Linux, I build my blog via a container, I felt like doing the same on windows. This means I&rsquo;d have to create a container image for building my blog. Until now, I hadn&rsquo;t experimented with windows containers, I chose the nanoserver image as the base for my container. After doing some experimentation, I wrote this dockerfile:
- For those unfamiliar with docker, this file can be easily broken down line-by-line.
-        
-        <a class="button is-link" href="https://adriankoshka.github.io/blog/post/building-my-blog-on-windows/" style="height:28px">
-          Read more
-        </a>
-        
-      </div>
-    </article>
-    
-    <article>
-      <div class="subtitle tags is-6 is-pulled-right">
-        
-      </div>
-      <h2 class="subtitle is-6">January 24, 2019</h2>
-      <h1 class="title"><a href="https://adriankoshka.github.io/blog/post/travis-and-quay/">Using Travis to push container images to Quay.io</a></h1>
-      <div class="content">
-        Preface This blog post assumes:
- The user is familiar with:  Travis-ci Docker (or podman/buildah) Git Github  The user has an account with:  Travis-ci Github Quay   For those unfamiliar with the above, here are some resources
-Introduction I prefer using Quay.io as my container registry instead of Dockerhub, and as such, I had to learn how setup Travis to push to quay.io. This is something I hadn&rsquo;t done before, as I&rsquo;ve only recently started making my own container images.
-        
-        <a class="button is-link" href="https://adriankoshka.github.io/blog/post/travis-and-quay/" style="height:28px">
-          Read more
-        </a>
-        
-      </div>
-    </article>
+    <div class="content">
+      
+
+<h2 id="part-one-creating-a-container">Part One: Creating a container</h2>
+
+<p>On Linux, I build my blog via a <a href="https://quay.io/repository/adrianlucrececeleste/alpine-hugo">container</a>,
+I felt like doing the same on windows. This means I&rsquo;d have to create a container
+image for building my blog. Until now, I hadn&rsquo;t experimented with windows
+containers, I chose the <a href="https://hub.docker.com/r/microsoft/nanoserver">nanoserver</a>
+image as the base for my container. After doing some experimentation, I wrote
+<a href="https://github.com/AdrianKoshka/windows-hugo/blob/master/Dockerfile">this</a> dockerfile:</p>
+
+<script src="https://gist.github.com/AdrianKoshka/cc965394f29893bcb1638a9253c5212f.js"></script>
+
+<p>For those unfamiliar with docker, this file can be easily broken down
+line-by-line.</p>
+
+<p><code>FROM microsoft/nanoserver</code></p>
+
+<p>This line tells docker what image we want to base our container off of, in this
+case, I&rsquo;m using microsoft&rsquo;s nanoserver image.</p>
+
+<p><code>LABEL maintainer=&quot;Adrian Lucrèce Céleste &lt;adrianlucrececeleste@airmail.cc&gt;&quot;</code></p>
+
+<p>This line tells docker who the maintainer of this image is, by applying a label.</p>
+
+<p><code>RUN powershell Invoke-WebRequest -Uri https://verlonglink.com -Outfile hugo.zip</code></p>
+
+<p>The <code>RUN</code> statement tells docker to run powershell with the specified parameters
+inside the container, <code>Invoke-WebRequest</code> is how I download the <code>.zip</code> that hugo
+comes packaged in for windows.</p>
+
+<p><code>RUN powershell Expand-Archive C:\hugo.zip -DestinationPath C:\hugo</code></p>
+
+<p>Here, powershell is unzipping the archive to <code>C:\hugo</code> for us.</p>
+
+<p><code>WORKDIR C:\\workspace</code></p>
+
+<p><code>WORKDIR</code> tells the container what directory to start out in at runtime.</p>
+
+<p><code>CMD [ &quot;--help&quot; ]</code></p>
+
+<p><code>CMD</code> provides a default argument for the container while running, the container
+passes <code>--help</code> to our <code>ENTRYPOINT</code> of <code>C:\hugo\hugo.exe</code>.</p>
+
+<p><code>ENTRYPOINT [ &quot;C:\\hugo\\hugo.exe&quot; ]</code></p>
+
+<p>The last and final line, <code>ENTRYPOINT</code> which tells the container what executable
+(and optionally, parameters) we want to use during runtime.</p>
+
+<h2 id="part-two-setting-up-vscode-to-use-the-container-on-windows">Part Two: Setting up VScode to use the container on windows</h2>
+
+<p>Before in my <a href="https://github.com/AdrianKoshka/blog/blob/master/.vscode/tasks.json"><code>tasks.json</code></a>,
+I only had one <code>command</code> and one <code>args</code> section per task, now I seperate them
+based on the OS that VScode is running on. So now if I wanted to preview my blog
+on windows, all I have to do is run the <code>Preview</code> task, and the container will
+be spun up, the ports mapped, and I can just open a web browser and look at my
+progress. Building is also as easy as just running the build task.</p>
+
+<p><img src="/blog/imgs/preview-windows-container.jpg" alt="previewing the site" /></p>
+
+<script src="https://gist.github.com/AdrianKoshka/006de98e4dd75eeb405b7715fcf4c07b.js"></script>
+
+      
+      <div class="related">
+</div>
+      
+    </div>
     
   </div>
 </section>
-<section class="section">
-  <div class="container">
-    <nav class="level is-mobile">
-      <div class="level-left">
-        <div class="level-item">
-          
-        </div>
-      </div>
-      <div class="level-right is-marginless">
-        <div class="level-item">
-          
-        </div>
-      </div>
-    </nav>
-  </div>
-</section>
+
 
 <section class="section">
   <div class="container has-text-centered">
@@ -148,5 +171,4 @@ Introduction I prefer using Quay.io as my container registry instead of Dockerhu
 
 </body>
 </html>
-
 
