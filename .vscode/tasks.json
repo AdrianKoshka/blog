@@ -21,22 +21,12 @@
                 ]
             },
             "windows": {
-                "command": "docker",
+                "command": "ubuntu1804.exe",
                 "args": [
                     "run",
-                    "--rm",
-                    "-it",
-                    "--isolation=hyperv",
-                    "--name=hp",
-                    "-p",
-                    "1313:1313",
-                    "-v",
-                    "${workspaceFolder}:C:\\workspace",
-                    "adrianlucrececeleste/windows-hugo:latest",
+                    "hugo",
                     "serve",
                     "--theme=kiss",
-                    "--bind",
-                    "0.0.0.0",
                     "--source=src",
                     "--buildDrafts"
                 ]
@@ -62,21 +52,13 @@
                 ]
             },
             "windows": {
-                "command": "docker",
+                "command": "ubuntu1804.exe",
                 "args": [
                     "run",
-                    "--rm",
-                    "--isolation=hyperv",
-                    "-it",
-                    "--name=hb",
-                    "-p",
-                    "1313:1313",
-                    "-v",
-                    "${workspaceFolder}:C:\\workspace",
-                    "adrianlucrececeleste/windows-hugo:latest",
+                    "hugo",
                     "--cleanDestinationDir",
-                    "--source=C:\\workspace\\src",
-                    "--destination=C:\\workspace\\docs",
+                    "--source=/home/alc/Github/blog/src",
+                    "--destination=/home/alc/Github/blog/docs",
                     "--theme=kiss"
                 ]
             },
