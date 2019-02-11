@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<meta name="theme-color" content="#494f5c">
+	<meta name="msapplication-TileColor" content="#494f5c">
+
+<meta itemprop="name" content="Using Travis to push container images to Quay.io">
+<meta itemprop="description" content="Preface This blog post assumes:
+ The user is familiar with:  Travis-ci Docker (or podman/buildah) Git Github  The user has an account with:  Travis-ci Github Quay   For those unfamiliar with the above, here are some resources
+Introduction I prefer using Quay.io as my container registry instead of Dockerhub, and as such, I had to learn how setup Travis to push to quay.io. This is something I hadn&rsquo;t done before, as I&rsquo;ve only recently started making my own container images.">
+
+
+<meta itemprop="datePublished" content="2019-01-24T20:02:00&#43;00:00" />
+<meta itemprop="dateModified" content="2019-01-24T20:02:00&#43;00:00" />
+<meta itemprop="wordCount" content="525">
+
+
+
+<meta itemprop="keywords" content="" />
+<meta property="og:title" content="Using Travis to push container images to Quay.io" />
+<meta property="og:description" content="Preface This blog post assumes:
+ The user is familiar with:  Travis-ci Docker (or podman/buildah) Git Github  The user has an account with:  Travis-ci Github Quay   For those unfamiliar with the above, here are some resources
+Introduction I prefer using Quay.io as my container registry instead of Dockerhub, and as such, I had to learn how setup Travis to push to quay.io. This is something I hadn&rsquo;t done before, as I&rsquo;ve only recently started making my own container images." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://adriankoshka.github.io/blog/posts/travis-and-quay/" />
+<meta property="article:published_time" content="2019-01-24T20:02:00&#43;00:00"/>
+<meta property="article:modified_time" content="2019-01-24T20:02:00&#43;00:00"/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Using Travis to push container images to Quay.io"/>
+<meta name="twitter:description" content="Preface This blog post assumes:
+ The user is familiar with:  Travis-ci Docker (or podman/buildah) Git Github  The user has an account with:  Travis-ci Github Quay   For those unfamiliar with the above, here are some resources
+Introduction I prefer using Quay.io as my container registry instead of Dockerhub, and as such, I had to learn how setup Travis to push to quay.io. This is something I hadn&rsquo;t done before, as I&rsquo;ve only recently started making my own container images."/>
+
+	<link rel="apple-touch-icon" sizes="180x180" href="/blog/apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="/blog/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="/blog/favicon-16x16.png">
+	<link rel="manifest" href="/blog/site.webmanifest">
+	<link rel="mask-icon" href="/blog/safari-pinned-tab.svg" color="">
+	<link rel="shortcut icon" href="/blog/favicon.ico">
+
+	<title>Using Travis to push container images to Quay.io</title>
+	<link rel="stylesheet" href="https://adriankoshka.github.io/blog/css/style.min.e17a25802a5bbec7b5c368fdf0e55ed331a31cadbc95c1c0e7be9e9cf889b8fb.css" integrity="sha256-4XolgCpbvse1w2j98OVe0zGjHK28lcHA576enPiJuPs=">
+	
+</head>
+
+<body id="page">
+	
+	<header id="site-header" class="animated slideInUp faster">
+		<div class="hdr-wrapper section-inner">
+			<div class="hdr-left">
+				<div class="site-branding">
+					<a href="https://adriankoshka.github.io/blog/">Adrian&#39;s Blog</a>
+				</div>
+				<nav class="site-nav hide-in-mobile">
+					<a href="https://adriankoshka.github.io/blog/posts/">Posts</a>
+				</nav>
+			</div>
+			<div class="hdr-right hdr-icons">
+				<span class="hdr-social hide-in-mobile"><a href="https://twitter.com/lucrececeleste" target="_blank" rel="noopener" title="Twitter"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-twitter"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg></a><a href="https://github.com/adriankoshka" target="_blank" rel="noopener" title="Github"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-github"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></a></span><button id="menu-btn" class="hdr-btn" title="Menu"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></button>
+			</div>
+		</div>
+	</header>
+	<div id="mobile-menu" class="animated fast">
+		<ul>
+			<li><a href="https://adriankoshka.github.io/blog/posts/">Posts</a></li>
+		</ul>
+	</div>
+
+
+	<main class="site-main section-inner animated fadeIn faster">
+		<article class="thin">
+			<header class="post-header">
+				<div class="post-meta"><span>Jan 24, 2019</span></div>
+				<h1>Using Travis to push container images to Quay.io</h1>
+			</header>
+			<div class="content">
+				
+
+<h2 id="preface">Preface<a href="#preface" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h2>
+
+<p>This blog post assumes:</p>
+
+<ul>
+<li>The user is familiar with:
+
+<ul>
+<li><a href="https://travis-ci.org">Travis-ci</a></li>
+<li><a href="https://www.docker.com/">Docker</a> (or <a href="https://podman.io">podman</a>/<a href="https://buildah.io">buildah</a>)</li>
+<li><a href="https://git-scm.com/">Git</a></li>
+<li><a href="https://github.com">Github</a></li>
+</ul></li>
+<li>The user has an account with:
+
+<ul>
+<li><a href="https://travis-ci.org">Travis-ci</a></li>
+<li><a href="https://github.com">Github</a></li>
+<li><a href="https://quay.io">Quay</a></li>
+</ul></li>
+</ul>
+
+<p>For those unfamiliar with the above, here are some <a href="#resources">resources</a></p>
+
+<h1 id="introduction">Introduction<a href="#introduction" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h1>
+
+<p>I prefer using <a href="https://quay.io">Quay.io</a> as my container registry instead of
+<a href="https://hub.docker.com">Dockerhub</a>, and as such, I had to learn how setup
+<a href="https://travis-ci.org">Travis</a> to push to <a href="https://quay.io">quay.io</a>. This is
+something I hadn&rsquo;t done before, as I&rsquo;ve only recently started making my own
+container images.</p>
+
+<h3 id="step-one-fork-the-tutorial-repo">Step One: fork the tutorial repo<a href="#step-one-fork-the-tutorial-repo" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<p>I&rsquo;ve setup a repo on github that I&rsquo;ll be using as a guide for this tutorial, it
+can be found <a href="https://github.com/AdrianKoshka/travis-quay-tutorial">here</a>. All
+you need to do is press the <code>Fork</code> button:</p>
+
+<p><img src="/blog/imgs/fork-button.png" alt="fork button" /></p>
+
+<p>This will make a copy of my repo for you to use with your account. The next step
+is to clone this repo:</p>
+
+<p><code>git clone git@github.com:AdrianKoshka/travis-quay-tutorial.git</code></p>
+
+<p>You can find the URL to clone from when you press the <code>Clone or download</code> button.</p>
+
+<p><img src="/blog/imgs/clone-button-quay-travis-tut.png" alt="clone or download button" /></p>
+
+<h3 id="step-two-initial-repo-setup">Step Two: Initial repo setup<a href="#step-two-initial-repo-setup" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<p>You&rsquo;ll need to edit the <code>.travis.yml</code> and <code>docker_push</code> files in your repo,
+replacing <code>[yourusername]</code> with the username of your quay account.</p>
+
+<script src="https://gist.github.com/AdrianKoshka/52691ea092f24997488b0bcdefd6d0b5.js"></script>
+
+<script src="https://gist.github.com/AdrianKoshka/ee32d9157fd941f98c4eb60afac919ff.js"></script>
+
+<h3 id="step-three-creating-the-quay-repository">Step Three: Creating the quay repository<a href="#step-three-creating-the-quay-repository" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<p>When signed into quay, in the upper right-hand corner, you&rsquo;ll see a
+<code>+ Create New Repository</code> button. Click the button,</p>
+
+<p><img src="/blog/imgs/quay-plus-button.png" alt="quay plus button" /></p>
+
+<p>You&rsquo;ll want to select <code>Public</code> instead of <code>Private</code>, and enter the repository name.
+Then click <code>Create Public Repository</code>. You&rsquo;ve now created the empty repository
+we&rsquo;ll be pushing our container image to later.</p>
+
+<p><img src="/blog/imgs/quay-new-repo.png" alt="quay new repo" /></p>
+
+<h3 id="step-four-creating-the-robot-account">Step Four: Creating the &ldquo;Robot Account&rdquo;<a href="#step-four-creating-the-robot-account" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<p>Robot accounts are &ldquo;accounts&rdquo; in quay.io under your user used for automated tasks.</p>
+
+<p>Again, in the upper right-hand corner, you&rsquo;ll see the <code>+</code> button, click it, then
+click <code>New Robot Account</code>.</p>
+
+<p><img src="/blog/imgs/new-robot-account.png" alt="New Robot Account" /></p>
+
+<p>You&rsquo;ll need to enter a name and description for the bot:</p>
+
+<p><img src="/blog/imgs/create-robot-step-one.png" alt="Create Robot Account Step 1" /></p>
+
+<p>Press <code>Create Robot Account</code>, now you&rsquo;ll have to give the robot write
+permissions to the repo you just created:</p>
+
+<p><img src="/blog/imgs/robot-give-privs.png" alt="Give Robot privileges" /></p>
+
+<p>Then press <code>Add Permissions</code>. You&rsquo;ll be taken to your robot account settings
+page now.</p>
+
+<p><img src="/blog/imgs/robot-account-settings.png" alt="Robot Settings Page" /></p>
+
+<p>Click the username of your newly created bot, it should bring up a window
+with your bots username and password.</p>
+
+<p><img src="/blog/imgs/bot-creds.png" alt="Bot username and password" /></p>
+
+<p>We&rsquo;ll need these creds later.</p>
+
+<h3 id="step-five-adding-variables-to-your-repo-on-travis">Step Five: Adding variables to your repo on travis<a href="#step-five-adding-variables-to-your-repo-on-travis" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<p>On Travis, go to your settings and click the <code>sync account</code> button. In the list
+of repositories should be your <code>travis-quay-tutorial</code> repo you forked earlier,
+activate it, and click on the <code>settings</code> button.</p>
+
+<p><img src="/blog/imgs/travis-settings.png" alt="Travis Settings" /></p>
+
+<p>Scroll down to the section named <code>Environment Variables</code>, and add a variable
+name <code>QUAY_BOT_USERNAME</code>, put the username of your robot account that you saw
+in the previous section, you should be able to copy-paste it.</p>
+
+<p><img src="/blog/imgs/travis-env-var-username.png" alt="Add QUAY_BOT_USERNAME" /></p>
+
+<p>Press the <code>Add</code> button. Add another variable called <code>QUAY_BOT_PASSWORD</code> and
+enter your bots password.</p>
+
+<p>Your <code>Environment Variables</code> section should look like this now:</p>
+
+<p><img src="/blog/imgs/travis-env-var-after.png" alt="Travis Environmental Variables After" /></p>
+
+<h3 id="step-six-committing-the-changes-from-step-two">Step Six: Committing the changes from step two<a href="#step-six-committing-the-changes-from-step-two" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<p>Now that you&rsquo;ve set everything else up, you can commit your changes to
+<code>.travis.yml</code> and <code>docker_push</code>, then push your changes to your fork. This
+should trigger a build with travis, which will build the container, and then
+push it to the quay repository.</p>
+
+<h2 id="resources">Resources<a href="#resources" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h2>
+
+<ul>
+<li><a href="https://docs.travis-ci.com/user/for-beginners">Travis Core Concepts for Beginners</a></li>
+<li><a href="https://www.docker.com/resources/what-container">Docker: What is a Container</a></li>
+<li><a href="https://www.docker.com/get-started">Docker: Get Started with Docker</a></li>
+<li><a href="https://github.com/containers/libpod/blob/master/docs/tutorials/podman_tutorial.md">Podman: Basic Setup and Use of Podman</a></li>
+<li><a href="https://github.com/containers/buildah/tree/master/docs/tutorials">Buildah: Tutorials</a></li>
+<li><a href="https://guides.github.com/">Github Guides</a></li>
+</ul>
+
+			</div>
+			<hr class="post-end">
+			<footer class="post-info">
+				<p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>525 Words</p>
+				<p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>2019-01-24 20:02 &#43;0000</p>
+			</footer>
+		</article>
+		<div class="post-nav thin">
+			<a class="next-post" href="https://adriankoshka.github.io/blog/posts/building-my-blog-on-windows/">
+				<span class="post-nav-label"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>&nbsp;Newer</span><br><span>Building My Blog on Windows</span>
+			</a>
+		</div>
+		<div id="comments" class="thin">
+</div>
+	</main>
+
+	<footer id="site-footer" class="section-inner thin animated fadeIn faster">
+		<p>&copy; 2019 <a href="https://adriankoshka.github.io/blog/">Adrian Lucrèce Céleste</a> &#183; <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC BY-NC 4.0</a></p>
+		<p>
+			Made with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> &#183; Theme <a href="https://github.com/Track3/hermit" target="_blank" rel="noopener">Hermit</a> &#183; <a href="https://adriankoshka.github.io/blog/posts/index.xml" target="_blank" title="rss"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rss"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg></a>
+		</p>
+	</footer>
+
+
+	<script src="https://adriankoshka.github.io/blog/js/main.min.8f39f24808e9d0a9b02da58c2d2838da859dc0b7bdfadbdb1883aae8b6adacfe.js" integrity="sha256-jznySAjp0KmwLaWMLSg42oWdwLe9+tvbGIOq6LatrP4="></script>
+
+</body>
+
+</html>
