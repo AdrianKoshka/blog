@@ -15,7 +15,7 @@
                     "${workspaceFolder}:/workspace:z",
                     "quay.io/adrianlucrececeleste/alpine-hugo:latest",
                     "serve",
-                    "--theme=kiss",
+                    "--theme=hermit",
                     "--source=/workspace/src",
                     "--buildDrafts"
                 ]
@@ -26,7 +26,7 @@
                     "run",
                     "hugo",
                     "serve",
-                    "--theme=kiss",
+                    "--theme=hermit",
                     "--source=src",
                     "--buildDrafts"
                 ]
@@ -48,7 +48,7 @@
                     "--cleanDestinationDir",
                     "--source=/workspace/src",
                     "--destination=/workspace/docs",
-                    "--theme=kiss",
+                    "--theme=hermit",
                 ]
             },
             "windows": {
@@ -59,7 +59,7 @@
                     "--cleanDestinationDir",
                     "--source=/home/alc/Github/blog/src",
                     "--destination=/home/alc/Github/blog/docs",
-                    "--theme=kiss"
+                    "--theme=hermit"
                 ]
             },
             "problemMatcher": [],
