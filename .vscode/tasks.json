@@ -48,7 +48,7 @@
                     "--cleanDestinationDir",
                     "--source=/workspace/src",
                     "--destination=/workspace/docs",
-                    "--theme=hermit",
+                    "--theme=hermit"
                 ]
             },
             "windows": {

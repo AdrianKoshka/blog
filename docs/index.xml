@@ -1,17 +1,11 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Adrian&#39;s Blog</title>
+    <title>PaperMod</title>
     <link>https://adriankoshka.github.io/blog/</link>
-    <description>Recent content on Adrian&#39;s Blog</description>
+    <description>Recent content on PaperMod</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.</copyright>
-    <lastBuildDate>Sun, 03 Feb 2019 15:38:44 -0500</lastBuildDate>
-    
-	<atom:link href="https://adriankoshka.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Sun, 03 Feb 2019 15:38:44 -0500</lastBuildDate><atom:link href="https://adriankoshka.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Building My Blog on Windows</title>
       <link>https://adriankoshka.github.io/blog/posts/building-my-blog-on-windows/</link>
@@ -29,7 +23,7 @@ FROMmicrosoft/nanoserverLABEL maintainer=&amp;#34;Adrian Lucrèce Céleste &amp;
       
       <guid>https://adriankoshka.github.io/blog/posts/travis-and-quay/</guid>
       <description>Preface This blog post assumes:
- The user is familiar with:  Travis-ci Docker (or podman/buildah) Git Github  The user has an account with:  Travis-ci Github Quay   For those unfamiliar with the above, here are some resources
+ The user is familiar with:  Travis-ci Docker (or podman/buildah) Git Github   The user has an account with:  Travis-ci Github Quay    For those unfamiliar with the above, here are some resources
 Introduction I prefer using Quay.io as my container registry instead of Dockerhub, and as such, I had to learn how setup Travis to push to quay.io. This is something I hadn&amp;rsquo;t done before, as I&amp;rsquo;ve only recently started making my own container images.</description>
     </item>
     
