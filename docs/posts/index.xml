@@ -5,7 +5,18 @@
     <link>https://adriankoshka.github.io/blog/posts/</link>
     <description>Recent content in Posts on Adrian&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sun, 03 Feb 2019 15:38:44 -0500</lastBuildDate><atom:link href="https://adriankoshka.github.io/blog/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 31 Oct 2020 00:35:08 -0400</lastBuildDate><atom:link href="https://adriankoshka.github.io/blog/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>RSI and Input Devices</title>
+      <link>https://adriankoshka.github.io/blog/posts/rsi-and-input-devices/</link>
+      <pubDate>Sat, 31 Oct 2020 00:35:08 -0400</pubDate>
+      
+      <guid>https://adriankoshka.github.io/blog/posts/rsi-and-input-devices/</guid>
+      <description>RSI, or Reptitive Strain Injury is:
+ a condition in which the prolonged performance of repetitive actions, typically with the hands, causes pain or impairment of function in the tendons and muscles involved.
+ For me, my right hand and wrist can start to hurt after using a normal mouse, or even an ergonomic mouse with a bad scroll wheel. Finding Human Interface Devices (HIDs) that don&amp;rsquo;t trigger my RSI has always felt like a losing battle full of compromise.</description>
+    </item>
+    
     <item>
       <title>Building My Blog on Windows</title>
       <link>https://adriankoshka.github.io/blog/posts/building-my-blog-on-windows/</link>
