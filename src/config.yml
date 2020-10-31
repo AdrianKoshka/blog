@@ -1,5 +1,5 @@
 baseURL: "https://adriankoshka.github.io/blog/"
-title: PaperMod
+title: Adrian's Blog
 paginate: 8
 theme: hugo-PaperMod
 enableInlineShortcodes: true
