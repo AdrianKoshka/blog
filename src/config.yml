@@ -27,7 +27,7 @@ languages:
 
 params:
   env: production
-  description: "Theme PaperMod - https://github.com/adityatelange/hugo-PaperMod"
+  description: "My blog about things"
   author: "Adrian Lucrèce Céleste"
   # author: ["Me", "You"] # multiple authors
   ShowReadingTime: true
