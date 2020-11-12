@@ -15,7 +15,7 @@ battle full of compromise.
 
 ## Logitech MX Master 3
 
-![Logitech MX Master 3](/blog/imgs/mx3.png)
+![Logitech MX Master 3](/imgs/mx3.png)
 
 The [Logitech MX Master 3](https://www.logitech.com/en-us/products/mice/mx-master-3.910-005620.html)
 is my daily driver mouse, overall it's a mouse I'd recommend to most people,
@@ -26,7 +26,7 @@ logitech so far.
 
 ## Logitech MX Ergo Plus
 
-![Logitech MX Pro](/blog/imgs/mxep.png)
+![Logitech MX Pro](/imgs/mxep.png)
 
 The [Logitech MX Ergo Plus](https://www.logitech.com/en-us/products/mice/mx-ergo-wireless-trackball-mouse.html),
 is a 10 year old mouse, but for a long time also had been my daily driver. It
@@ -44,7 +44,7 @@ their newest trackball mouse.
 
 ## Logitech M570
 
-![Logitech M570](/blog/imgs/m570.png)
+![Logitech M570](/imgs/m570.png)
 
 The [Logitech M570](https://www.logitech.com/en-us/product/wireless-trackball-m570).
 Now this is just a guess on my part, but at least from how it looks, I doubt

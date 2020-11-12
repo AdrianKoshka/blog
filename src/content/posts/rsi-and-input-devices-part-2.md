@@ -3,11 +3,11 @@ title: "Rsi and Input Devices Part 2"
 date: 2020-11-11T17:05:16-05:00
 ---
 
-This is part 2 of [RSI and Input Devices](/blog/posts/rsi-and-input-devices).
+This is part 2 of [RSI and Input Devices](/posts/rsi-and-input-devices).
 
 ## Logitech MX Vertical Ergonomic Mouse
 
-![MX Vertical](/blog/imgs/mx-vertical.png)
+![MX Vertical](/imgs/mx-vertical.png)
 
 At first I was rejected the idea of using the [Logitech MX Vertical Ergonomic Mouse](https://www.logitech.com/en-us/products/mice/mx-vertical-ergonomic-mouse.910-005447.html)
 I had tried the one my roommate had and found the scroll-wheel to be subpar,
