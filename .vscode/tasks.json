@@ -5,18 +5,11 @@
             "label": "Preview",
             "type": "process",
             "linux": {
-                "command": "podman",
+                "command": "hugo",
                 "args": [
-                    "run",
-                    "--rm",
-                    "--net=host",
-                    "--name=hp",
-                    "-v",
-                    "${workspaceFolder}:/workspace:z",
-                    "quay.io/adrianlucrececeleste/alpine-hugo:latest",
                     "serve",
-                    "--theme=hermit",
-                    "--source=/workspace/src",
+                    "--theme=hugo-PaperMod",
+                    "--source=src",
                     "--buildDrafts"
                 ]
             },
@@ -36,19 +29,11 @@
         {
             "label": "Build Blog",
             "type": "process",
-            "linux": {"command": "podman",
+            "linux": {"command": "hugo",
                 "args": [
-                    "run",
-                    "--rm",
-                    "--net=host",
-                    "--name=hb-$(git rev-parse HEAD)",
-                    "-v",
-                    "${workspaceFolder}:/workspace:z",
-                    "quay.io/adrianlucrececeleste/alpine-hugo:latest",
-                    "--cleanDestinationDir",
-                    "--source=/workspace/src",
-                    "--destination=/workspace/docs",
-                    "--theme=hermit"
+                    "--source=src",
+                    "--destination=../docs",
+                    "--theme=hugo-PaperMod"
                 ]
             },
             "windows": {
