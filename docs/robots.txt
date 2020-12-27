@@ -1,1 +1,3 @@
 User-agent: *
+Disallow:
+Sitemap: https://blog.adrianlucr%C3%A8cec%C3%A9leste.page/sitemap.xml
