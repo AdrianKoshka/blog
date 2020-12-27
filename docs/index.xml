@@ -2,26 +2,26 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Adrian&#39;s Blog</title>
-    <link>https://adrianlucr%C3%A8cec%C3%A9leste.page/</link>
+    <link>https://blog.adrianlucr%C3%A8cec%C3%A9leste.page/</link>
     <description>Recent content on Adrian&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Wed, 11 Nov 2020 17:05:16 -0500</lastBuildDate><atom:link href="https://adrianlucr%C3%A8cec%C3%A9leste.page/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 11 Nov 2020 17:05:16 -0500</lastBuildDate><atom:link href="https://blog.adrianlucr%C3%A8cec%C3%A9leste.page/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Rsi and Input Devices Part 2</title>
-      <link>https://adrianlucr%C3%A8cec%C3%A9leste.page/posts/rsi-and-input-devices-part-2/</link>
+      <link>https://blog.adrianlucr%C3%A8cec%C3%A9leste.page/posts/rsi-and-input-devices-part-2/</link>
       <pubDate>Wed, 11 Nov 2020 17:05:16 -0500</pubDate>
       
-      <guid>https://adrianlucr%C3%A8cec%C3%A9leste.page/posts/rsi-and-input-devices-part-2/</guid>
+      <guid>https://blog.adrianlucr%C3%A8cec%C3%A9leste.page/posts/rsi-and-input-devices-part-2/</guid>
       <description>This is part 2 of RSI and Input Devices.
 Logitech MX Vertical Ergonomic Mouse At first I was rejected the idea of using the Logitech MX Vertical Ergonomic Mouse I had tried the one my roommate had and found the scroll-wheel to be subpar, though after continued pain from using my MX Ergo Plus I decided to buy one off amazon. Even though I didn&amp;rsquo;t care for the scroll-wheel on the mouse, I noticed the pain in my hand and wrist decreased, and after a few days pretty much went away.</description>
     </item>
     
     <item>
       <title>RSI and Input Devices</title>
-      <link>https://adrianlucr%C3%A8cec%C3%A9leste.page/posts/rsi-and-input-devices/</link>
+      <link>https://blog.adrianlucr%C3%A8cec%C3%A9leste.page/posts/rsi-and-input-devices/</link>
       <pubDate>Sat, 31 Oct 2020 00:35:08 -0400</pubDate>
       
-      <guid>https://adrianlucr%C3%A8cec%C3%A9leste.page/posts/rsi-and-input-devices/</guid>
+      <guid>https://blog.adrianlucr%C3%A8cec%C3%A9leste.page/posts/rsi-and-input-devices/</guid>
       <description>RSI, or Reptitive Strain Injury is:
  a condition in which the prolonged performance of repetitive actions, typically with the hands, causes pain or impairment of function in the tendons and muscles involved.
  For me, my right hand and wrist can start to hurt after using a normal mouse, or even an ergonomic mouse with a bad scroll wheel. Finding Human Interface Devices (HIDs) that don&amp;rsquo;t trigger my RSI has always felt like a losing battle full of compromise.</description>
@@ -29,20 +29,20 @@ Logitech MX Vertical Ergonomic Mouse At first I was rejected the idea of using t
     
     <item>
       <title>Building My Blog on Windows</title>
-      <link>https://adrianlucr%C3%A8cec%C3%A9leste.page/posts/building-my-blog-on-windows/</link>
+      <link>https://blog.adrianlucr%C3%A8cec%C3%A9leste.page/posts/building-my-blog-on-windows/</link>
       <pubDate>Sun, 03 Feb 2019 15:38:44 -0500</pubDate>
       
-      <guid>https://adrianlucr%C3%A8cec%C3%A9leste.page/posts/building-my-blog-on-windows/</guid>
+      <guid>https://blog.adrianlucr%C3%A8cec%C3%A9leste.page/posts/building-my-blog-on-windows/</guid>
       <description>Part One: Creating a container On Linux, I build my blog via a container, I felt like doing the same on windows. This means I&amp;rsquo;d have to create a container image for building my blog. Until now, I hadn&amp;rsquo;t experimented with windows containers, I chose the nanoserver image as the base for my container. After doing some experimentation, I wrote this dockerfile:
 FROMmicrosoft/nanoserverLABEL maintainer=&amp;#34;Adrian Lucrèce Céleste &amp;lt;adrianlucrececeleste@airmail.cc&amp;gt;&amp;#34;RUN powershell Invoke-WebRequest -Uri https://github.</description>
     </item>
     
     <item>
       <title>Using Travis to push container images to Quay.io</title>
-      <link>https://adrianlucr%C3%A8cec%C3%A9leste.page/posts/travis-and-quay/</link>
+      <link>https://blog.adrianlucr%C3%A8cec%C3%A9leste.page/posts/travis-and-quay/</link>
       <pubDate>Thu, 24 Jan 2019 20:02:00 +0000</pubDate>
       
-      <guid>https://adrianlucr%C3%A8cec%C3%A9leste.page/posts/travis-and-quay/</guid>
+      <guid>https://blog.adrianlucr%C3%A8cec%C3%A9leste.page/posts/travis-and-quay/</guid>
       <description>Preface This blog post assumes:
  The user is familiar with:  Travis-ci Docker (or podman/buildah) Git Github   The user has an account with:  Travis-ci Github Quay    For those unfamiliar with the above, here are some resources
 Introduction I prefer using Quay.io as my container registry instead of Dockerhub, and as such, I had to learn how setup Travis to push to quay.io. This is something I hadn&amp;rsquo;t done before, as I&amp;rsquo;ve only recently started making my own container images.</description>
