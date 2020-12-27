@@ -75,7 +75,7 @@ on windows, all I have to do is run the `Preview` task, and the container will
 be spun up, the ports mapped, and I can just open a web browser and look at my
 progress. Building is also as easy as just running the build task.
 
-![previewing the site](/blog/imgs/preview-windows-container.jpg)
+![previewing the site](/imgs/preview-windows-container.jpg)
 
 ```json
 {
