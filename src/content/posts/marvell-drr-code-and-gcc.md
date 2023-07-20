@@ -1,7 +1,7 @@
 ---
 title: "Marvell DDR Code and GCC"
 date: 2023-07-20T15:42:39-04:00
-draft: true
+draft: false
 ---
 
 I have a SolidRun MACCHIATObin Single Shot, and you can build and use UEFI on it. This involves compiling code from a variety of repos, one of those being [mv-ddr-marvell](https://github.com/MarvellEmbeddedProcessors/mv-ddr-marvell). To do this, I made a [git repo](https://github.com/AdrianKoshka/macc-uefi-build-script) full of helper scripts. I don't use the dev board much anymore, and it is mostly there to possibly help others build the collection of firmware that results in the image that I burn onto a microSD card.

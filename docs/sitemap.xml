@@ -1,47 +1,32 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
-  
   <url>
     <loc>https://blog.adrianlucr%C3%A8cec%C3%A9leste.page/</loc>
-    <lastmod>2020-11-11T17:05:16-05:00</lastmod>
-  </url>
-  
-  <url>
+    <lastmod>2023-07-20T15:42:39-04:00</lastmod>
+  </url><url>
+    <loc>https://blog.adrianlucr%C3%A8cec%C3%A9leste.page/posts/marvell-drr-code-and-gcc/</loc>
+    <lastmod>2023-07-20T15:42:39-04:00</lastmod>
+  </url><url>
     <loc>https://blog.adrianlucr%C3%A8cec%C3%A9leste.page/posts/</loc>
-    <lastmod>2020-11-11T17:05:16-05:00</lastmod>
-  </url>
-  
-  <url>
+    <lastmod>2023-07-20T15:42:39-04:00</lastmod>
+  </url><url>
     <loc>https://blog.adrianlucr%C3%A8cec%C3%A9leste.page/posts/rsi-and-input-devices-part-2/</loc>
     <lastmod>2020-11-11T17:05:16-05:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://blog.adrianlucr%C3%A8cec%C3%A9leste.page/posts/rsi-and-input-devices/</loc>
     <lastmod>2020-10-31T00:35:08-04:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://blog.adrianlucr%C3%A8cec%C3%A9leste.page/posts/building-my-blog-on-windows/</loc>
     <lastmod>2019-02-03T15:38:44-05:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://blog.adrianlucr%C3%A8cec%C3%A9leste.page/posts/travis-and-quay/</loc>
     <lastmod>2019-01-24T20:02:00+00:00</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://blog.adrianlucr%C3%A8cec%C3%A9leste.page/categories/</loc>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://blog.adrianlucr%C3%A8cec%C3%A9leste.page/series/</loc>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://blog.adrianlucr%C3%A8cec%C3%A9leste.page/tags/</loc>
   </url>
-  
 </urlset>

@@ -1,11 +1,21 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Posts on Adrian&#39;s Blog</title>
     <link>https://blog.adrianlucr%C3%A8cec%C3%A9leste.page/posts/</link>
     <description>Recent content in Posts on Adrian&#39;s Blog</description>
     <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Wed, 11 Nov 2020 17:05:16 -0500</lastBuildDate><atom:link href="https://blog.adrianlucr%C3%A8cec%C3%A9leste.page/posts/index.xml" rel="self" type="application/rss+xml" />
+    <language>en</language>
+    <lastBuildDate>Thu, 20 Jul 2023 15:42:39 -0400</lastBuildDate><atom:link href="https://blog.adrianlucr%C3%A8cec%C3%A9leste.page/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Marvell DDR Code and GCC</title>
+      <link>https://blog.adrianlucr%C3%A8cec%C3%A9leste.page/posts/marvell-drr-code-and-gcc/</link>
+      <pubDate>Thu, 20 Jul 2023 15:42:39 -0400</pubDate>
+      
+      <guid>https://blog.adrianlucr%C3%A8cec%C3%A9leste.page/posts/marvell-drr-code-and-gcc/</guid>
+      <description>I have a SolidRun MACCHIATObin Single Shot, and you can build and use UEFI on it. This involves compiling code from a variety of repos, one of those being mv-ddr-marvell. To do this, I made a git repo full of helper scripts. I don&amp;rsquo;t use the dev board much anymore, and it is mostly there to possibly help others build the collection of firmware that results in the image that I burn onto a microSD card.</description>
+    </item>
+    
     <item>
       <title>Rsi and Input Devices Part 2</title>
       <link>https://blog.adrianlucr%C3%A8cec%C3%A9leste.page/posts/rsi-and-input-devices-part-2/</link>
@@ -23,8 +33,8 @@ Logitech MX Vertical Ergonomic Mouse At first I was rejected the idea of using t
       
       <guid>https://blog.adrianlucr%C3%A8cec%C3%A9leste.page/posts/rsi-and-input-devices/</guid>
       <description>RSI, or Reptitive Strain Injury is:
- a condition in which the prolonged performance of repetitive actions, typically with the hands, causes pain or impairment of function in the tendons and muscles involved.
- For me, my right hand and wrist can start to hurt after using a normal mouse, or even an ergonomic mouse with a bad scroll wheel. Finding Human Interface Devices (HIDs) that don&amp;rsquo;t trigger my RSI has always felt like a losing battle full of compromise.</description>
+a condition in which the prolonged performance of repetitive actions, typically with the hands, causes pain or impairment of function in the tendons and muscles involved.
+For me, my right hand and wrist can start to hurt after using a normal mouse, or even an ergonomic mouse with a bad scroll wheel. Finding Human Interface Devices (HIDs) that don&amp;rsquo;t trigger my RSI has always felt like a losing battle full of compromise.</description>
     </item>
     
     <item>
@@ -34,7 +44,7 @@ Logitech MX Vertical Ergonomic Mouse At first I was rejected the idea of using t
       
       <guid>https://blog.adrianlucr%C3%A8cec%C3%A9leste.page/posts/building-my-blog-on-windows/</guid>
       <description>Part One: Creating a container On Linux, I build my blog via a container, I felt like doing the same on windows. This means I&amp;rsquo;d have to create a container image for building my blog. Until now, I hadn&amp;rsquo;t experimented with windows containers, I chose the nanoserver image as the base for my container. After doing some experimentation, I wrote this dockerfile:
-FROMmicrosoft/nanoserverLABEL maintainer=&amp;#34;Adrian Lucrèce Céleste &amp;lt;adrianlucrececeleste@airmail.cc&amp;gt;&amp;#34;RUN powershell Invoke-WebRequest -Uri https://github.</description>
+FROM microsoft/nanoserver LABEL maintainer=&amp;#34;Adrian Lucrèce Céleste &amp;lt;adrianlucrececeleste@airmail.cc&amp;gt;&amp;#34; RUN powershell Invoke-WebRequest -Uri https://github.</description>
     </item>
     
     <item>
@@ -44,7 +54,7 @@ FROMmicrosoft/nanoserverLABEL maintainer=&amp;#34;Adrian Lucrèce Céleste &amp;
       
       <guid>https://blog.adrianlucr%C3%A8cec%C3%A9leste.page/posts/travis-and-quay/</guid>
       <description>Preface This blog post assumes:
- The user is familiar with:  Travis-ci Docker (or podman/buildah) Git Github   The user has an account with:  Travis-ci Github Quay    For those unfamiliar with the above, here are some resources
+The user is familiar with: Travis-ci Docker (or podman/buildah) Git Github The user has an account with: Travis-ci Github Quay For those unfamiliar with the above, here are some resources
 Introduction I prefer using Quay.io as my container registry instead of Dockerhub, and as such, I had to learn how setup Travis to push to quay.io. This is something I hadn&amp;rsquo;t done before, as I&amp;rsquo;ve only recently started making my own container images.</description>
     </item>
     
