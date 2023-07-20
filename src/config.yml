@@ -32,8 +32,9 @@ params:
   # author: ["Me", "You"] # multiple authors
   ShowReadingTime: true
   defaultTheme: auto
-  ShowShareButtons: true
+  ShowShareButtons: false
   displayFullLangName: true
+  ShowCodeCopyButtons: true
   # images: ""
   # assets:
   #   favicon: '<path / external url>'
