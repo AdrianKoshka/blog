@@ -118,7 +118,7 @@ alc@devvm:~/toolchain-src/gcc-11.4.0$ ./contrib/download_prerequisites
 alc@devvm:~/toolchain-src/$ cd ..
 alc@devvm:~/toolchain-src/$ mkdir objdir
 alc@devvm:~/toolchain-src/$ cd objdir
-alc@devvm:~/toolchain-src/objdir$ $PWD/../gcc-11.4.0/configure --prefix=$HOME/buildroot/11.4.0 --enable-languages=c,c++,lto --enable-lto --disable-nls --disable-libquadmath --disable-libquadmath --enable-default-pie --disable-werror --enable-linker-build-id
+alc@devvm:~/toolchain-src/objdir$ $PWD/../gcc-11.4.0/configure --prefix=$HOME/buildroot/11.4.0 --enable-languages=c,c++,lto --enable-lto --disable-nls --disable-libquadmath --disable-libquadmath-support --enable-default-pie --disable-werror --enable-linker-build-id
 alc@devvm:~/toolchain-src/objdir$ make -j5
 alc@devvm:~/toolchain-src/objdir$ make install
 ```
